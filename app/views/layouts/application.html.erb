@@ -1,17 +1,29 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>SchoolManagement</title>
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
+<head>
+  <title>CodingChallenge1300</title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+</head>
 
-  <body>
-  <p class="notice"><%= notice %></p>
-  <p class="alert"><%= alert %></p>
-    <%= yield %>
-  </body>
+<body>
+<% if user_signed_in? %>
+  <%= render 'layouts/navbar' %>
+<% end %>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="container">
+      <% flash.each do |name, msg| %>
+        <%= content_tag :div, msg, class: [:alert, alert_for(name)] %>
+      <% end %>
+
+      <%= yield %>
+    </div>
+  </div>
+</div>
+</body>
 </html>

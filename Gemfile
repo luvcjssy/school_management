@@ -15,6 +15,9 @@ gem 'bootsnap', '>= 1.4.2', require: false
 # Authentication
 gem 'devise'
 
+# Bootstrap
+gem 'bootstrap', '~> 4.5.0'
+
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
 end
