@@ -1,0 +1,29 @@
+<div class=" pb-2 mb-3 pt-3">
+  <div class="btn-toolbar mb-2 mb-md-0">
+    <%= link_to users_path, class: "btn btn-secondary" do %>
+      <i class="fa fa-arrow-left"></i> Back
+    <% end %>
+    <%= link_to new_user_path, class: "btn btn-warning mx-3" do %>
+      <i class="fa fa-pencil"></i> Edit
+    <% end %>
+    <%= link_to new_user_path, class: "btn btn-danger" do %>
+      <i class="fa fa-trash"></i> Delete
+    <% end %>
+  </div>
+</div>
+<table class="table table-user-information table-borderless">
+  <tbody>
+    <tr>
+      <td class="text-right">Email</td>
+      <td><%= @user.email %></td>
+    </tr>
+    <tr>
+      <td class="text-right">Password</td>
+      <td>**********</td>
+    </tr>
+    <tr>
+      <td class="text-right">Role</td>
+      <td><%= @user.role&.humanize %></td>
+    </tr>
+  </tbody>
+</table>
