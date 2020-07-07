@@ -1,9 +1,11 @@
 class UsersController < BaseController
-  before_action :set_user, only: [:show, :destroy]
+  before_action :set_user, only: [:show, :destroy, :edit, :update]
 
   def index
     @users = User.all
   end
+
+  def show; end
 
   def new
     @user = User.new
@@ -20,12 +22,21 @@ class UsersController < BaseController
     end
   end
 
-  def show; end
-
   def destroy
     @user.destroy
     flash[:success] = 'User has been deleted!'
     redirect_to users_path
+  end
+
+  def edit; end
+
+  def update
+    if @user.update(user_params)
+      flash[:success] = 'User has been updated!'
+      redirect_to users_path
+    else
+      render :edit
+    end
   end
 
   private
@@ -35,6 +46,11 @@ class UsersController < BaseController
   end
 
   def user_params
+    if params[:user][:password].blank?
+      params[:user].delete(:password)
+      params[:user].delete(:password_confirmation)
+    end
+
     params.require(:user).permit(:email, :name, :password, :password_confirmation, :role)
   end
 end

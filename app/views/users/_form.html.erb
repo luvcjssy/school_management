@@ -1,7 +1,7 @@
 <%= form_for @user do |f| %>
   <div class=" pb-2 mb-3 pt-3">
     <div class="btn-toolbar mb-2 mb-md-0">
-      <%= link_to @users_path, class: "btn btn-secondary mr-3" do %>
+      <%= link_to users_path, class: "btn btn-secondary mr-3" do %>
         <i class="fa fa-arrow-left"></i> Back
       <% end %>
 
@@ -48,7 +48,7 @@
   <div class="form-group row">
     <%= f.label :role, class: "col-sm-3 col-form-label" %>
     <div class="col-sm-9">
-      <%= f.select :role, User.roles, { include_blank: true }, class: "form-control" %>
+      <%= f.select :role, User.roles.keys, { include_blank: true }, class: "form-control" %>
     </div>
   </div>
 
