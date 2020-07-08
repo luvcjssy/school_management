@@ -1,0 +1,31 @@
+<div class=" pb-2 mb-3 pt-3">
+  <div class="btn-toolbar mb-2 mb-md-0">
+    <%= link_to new_test_path, class: "btn btn-success" do %>
+      <i class="fa fa-plus"></i> New Test
+    <% end %>
+  </div>
+</div>
+
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th scope="col">Name</th>
+    <th scope="col">Description</th>
+    <th class="text-center" scope="col"># Questions</th>
+    <th>Actions</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @tests.each do |test| %>
+    <tr>
+      <th><%= test.name %></th>
+      <td><%= test.description %></td>
+      <td class="text-center"><%= test.questions.size %></td>
+      <td>
+        <%= link_to "Edit", edit_test_path(test) %>
+        <%= link_to "Delete", test, method: :delete, data: {:confirm => "Are you sure?" } %>
+      </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>

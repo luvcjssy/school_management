@@ -22,12 +22,6 @@ class UsersController < BaseController
     end
   end
 
-  def destroy
-    @user.destroy
-    flash[:success] = 'User has been deleted!'
-    redirect_to users_path
-  end
-
   def edit; end
 
   def update
@@ -37,6 +31,12 @@ class UsersController < BaseController
     else
       render :edit
     end
+  end
+
+  def destroy
+    @user.destroy
+    flash[:success] = 'User has been deleted!'
+    redirect_to users_path
   end
 
   private

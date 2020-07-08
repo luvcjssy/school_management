@@ -1,0 +1,32 @@
+<div class="nested-fields mb-3">
+  <%= f.hidden_field :_destroy %>
+
+  <div class="form-group row">
+    <div class="col-sm-11">
+      <%= f.text_field :label, class: "form-control", placeholder: 'Give the question a label here...' %>
+    </div>
+    <div class="col-sm-1 align-self-center text-right">
+      <%= link_to '#', class: "remove_fields" do %>
+        <i class="fa fa-trash remove_question_fields"></i>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <div class="col-sm-12">
+      <%= f.text_area :description, class: "form-control", placeholder: 'Enter a description here...' %>
+    </div>
+  </div>
+
+  <div id="answer_list">
+    <table style="width: 100%" class="serial_number">
+      <tbody>
+        <%= f.fields_for :answers do |answer| %>
+          <%= render 'answer_fields', f: answer %>
+        <% end %>
+      </tbody>
+    </table>
+
+    <%= link_to_add_fields "<i class='fa fa-plus'></i>".html_safe + ' Option', f, :answers, 'add_answers', 'javascript:;', 'handleClick(this)' %>
+  </div>
+</div>

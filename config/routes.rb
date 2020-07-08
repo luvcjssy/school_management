@@ -4,4 +4,5 @@ Rails.application.routes.draw do
   root 'users#index'
 
   resources :users
+  resources :tests, except: [:show]
 end
