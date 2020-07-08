@@ -15,4 +15,8 @@ module ApplicationHelper
     end
     link_to(name, href, class: "#{class_name} btn btn-success ml-auto", data: {id: id, fields: fields.gsub("\n", "")}, onclick: event)
   end
+
+  def active_class(link_path_arr)
+    link_path_arr.include?(request.path) ? "active" : ""
+  end
 end

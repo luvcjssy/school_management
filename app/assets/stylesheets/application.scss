@@ -10,3 +10,8 @@ table.serial_number tr::before {
   content: counter(rowNumber);
   vertical-align: middle;
 }
+
+// Active link
+.active {
+  color: black;
+}
