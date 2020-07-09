@@ -41,7 +41,7 @@ class TestsController < BaseController
   private
 
   def set_test
-    @test = Test.find(params[:id])
+    @test = Test.includes(questions: :answers).find(params[:id])
   end
 
   def test_params

@@ -8,19 +8,19 @@ info:
     url: http://www.apache.org/licenses/LICESE-2.0.html
   version: 1.0.0
 servers:
-- url: http://localhost:3000/api/v1
-  description: Development environment
-- url: https://school-management-exam.herokuapp.com/api/v1
-  description: Production environment
+  - url: http://localhost:3000/api/v1
+    description: Development environment
+  - url: https://school-management-exam.herokuapp.com/api/v1
+    description: Production environment
 tags:
-- name: Student Authentication
-- name: Test Management
-- name: Applicant Management
+  - name: Student Authentication
+  - name: Test Management
+  - name: Applicant Management
 paths:
   /auth/sign_in:
     post:
       tags:
-      - Student Authentication
+        - Student Authentication
       summary: Student authentication
       requestBody:
         $ref: "#/components/requestBodies/studentSignInBody"
@@ -48,7 +48,7 @@ paths:
   /auth/sign_out:
     delete:
       tags:
-      - Student Authentication
+        - Student Authentication
       summary: Student sign out
       responses:
         200:
@@ -60,15 +60,15 @@ paths:
         404:
           $ref: "#/components/responses/userNotFound"
       security:
-      - apiTokenType: []
-      - apiExpiry: []
-      - apiUid: []
-      - appClient: []
-      - appAccessToken: []
+        - apiTokenType: []
+        - apiExpiry: []
+        - apiUid: []
+        - appClient: []
+        - appAccessToken: []
   /tests:
     get:
       tags:
-      - Test Management
+        - Test Management
       summary: Get tests list
       parameters:
         - $ref: "#/components/parameters/page"
@@ -85,15 +85,15 @@ paths:
         403:
           $ref: "#/components/responses/forbidden"
       security:
-      - apiTokenType: []
-      - apiExpiry: []
-      - apiUid: []
-      - appClient: []
-      - appAccessToken: []
+        - apiTokenType: []
+        - apiExpiry: []
+        - apiUid: []
+        - appClient: []
+        - appAccessToken: []
   /tests/{id}:
     get:
       tags:
-      - Test Management
+        - Test Management
       summary: Get test detail
       parameters:
         - $ref: "#/components/parameters/id"
@@ -111,15 +111,15 @@ paths:
         404:
           $ref: "#/components/responses/recordNotFound"
       security:
-      - apiTokenType: []
-      - apiExpiry: []
-      - apiUid: []
-      - appClient: []
-      - appAccessToken: []
+        - apiTokenType: []
+        - apiExpiry: []
+        - apiUid: []
+        - appClient: []
+        - appAccessToken: []
   /applicants:
     post:
       tags:
-      - Applicant Management
+        - Applicant Management
       summary: Submit test result
       requestBody:
         $ref: "#/components/requestBodies/createApplicantBody"
@@ -137,11 +137,11 @@ paths:
         422:
           $ref: "#/components/responses/unprocessableEntityCreateLead"
       security:
-      - apiTokenType: []
-      - apiExpiry: []
-      - apiUid: []
-      - appClient: []
-      - appAccessToken: []
+        - apiTokenType: []
+        - apiExpiry: []
+        - apiUid: []
+        - appClient: []
+        - appAccessToken: []
 components:
   parameters:
     id:
@@ -335,8 +335,8 @@ components:
         application/json:
           schema:
             required:
-            - email
-            - password
+              - email
+              - password
             type: object
             properties:
               email:
@@ -353,7 +353,7 @@ components:
         application/json:
           schema:
             required:
-            - test_id
+              - test_id
             type: object
             properties:
               test_id:
@@ -432,17 +432,21 @@ components:
                 type: string
               updated_at:
                 type: string
+              question_count:
+                type: number
           example:
             - id: 1
               name: "Match I"
               description: "Take a Math test"
               created_at: "2020-07-09T10:13:44.250Z"
               updated_at: "2020-07-09T10:13:44.250Z"
+              question_count: 2
             - id: 2
               name: "Match II"
               description: "Take a Math test"
               created_at: "2020-07-09T10:15:42.698Z"
               updated_at: "2020-07-09T10:15:42.698Z"
+              question_count: 2
         current_page:
           type: number
           example: 1
@@ -524,30 +528,30 @@ components:
                   created_at: "2020-07-09T10:13:44.255Z"
                   updated_at: "2020-07-09T10:13:44.255Z"
                   answers: [
-                    {
-                      id: 1,
-                      result: "2",
-                      correct: false,
-                      question_id: 1,
-                      created_at: "2020-07-09T10:13:44.318Z",
-                      updated_at: "2020-07-09T10:13:44.318Z"
-                    },
-                    {
-                      id: 2,
-                      result: "3",
-                      correct: false,
-                      question_id: 1,
-                      created_at: "2020-07-09T10:13:44.416Z",
-                      updated_at: "2020-07-09T10:13:44.416Z"
-                    },
-                    {
-                      id: 3,
-                      result: "4",
-                      correct: true,
-                      question_id: 1,
-                      created_at: "2020-07-09T10:13:44.420Z",
-                      updated_at: "2020-07-09T10:13:44.420Z"
-                    }
+                  {
+                    id: 1,
+                    result: "2",
+                    correct: false,
+                    question_id: 1,
+                    created_at: "2020-07-09T10:13:44.318Z",
+                    updated_at: "2020-07-09T10:13:44.318Z"
+                  },
+                  {
+                    id: 2,
+                    result: "3",
+                    correct: false,
+                    question_id: 1,
+                    created_at: "2020-07-09T10:13:44.416Z",
+                    updated_at: "2020-07-09T10:13:44.416Z"
+                  },
+                  {
+                    id: 3,
+                    result: "4",
+                    correct: true,
+                    question_id: 1,
+                    created_at: "2020-07-09T10:13:44.420Z",
+                    updated_at: "2020-07-09T10:13:44.420Z"
+                  }
                   ]
                 - id: 2
                   type: Simple_algebra
@@ -556,30 +560,30 @@ components:
                   created_at: "2020-07-09T10:14:40.146Z"
                   updated_at: "2020-07-09T10:14:40.146Z"
                   answers: [
-                    {
-                      id: 4,
-                      result: "3",
-                      correct: false,
-                      question_id: 2,
-                      created_at: "2020-07-09T10:14:40.150Z",
-                      updated_at: "2020-07-09T10:14:40.150Z"
-                    },
-                    {
-                      id: 5,
-                      result: "5",
-                      correct: true,
-                      question_id: 2,
-                      created_at: "2020-07-09T10:14:40.153Z",
-                      updated_at: "2020-07-09T10:14:40.153Z"
-                    },
-                    {
-                      id: 6,
-                      result: "4",
-                      correct: true,
-                      question_id: 2,
-                      created_at: "2020-07-09T10:14:40.208Z",
-                      updated_at: "2020-07-09T10:14:40.208Z"
-                    }
+                  {
+                    id: 4,
+                    result: "3",
+                    correct: false,
+                    question_id: 2,
+                    created_at: "2020-07-09T10:14:40.150Z",
+                    updated_at: "2020-07-09T10:14:40.150Z"
+                  },
+                  {
+                    id: 5,
+                    result: "5",
+                    correct: true,
+                    question_id: 2,
+                    created_at: "2020-07-09T10:14:40.153Z",
+                    updated_at: "2020-07-09T10:14:40.153Z"
+                  },
+                  {
+                    id: 6,
+                    result: "4",
+                    correct: true,
+                    question_id: 2,
+                    created_at: "2020-07-09T10:14:40.208Z",
+                    updated_at: "2020-07-09T10:14:40.208Z"
+                  }
                   ]
     createApplicantSchema:
       type: object

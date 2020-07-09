@@ -20,7 +20,7 @@
     <tr>
       <th><%= test.name %></th>
       <td><%= test.description %></td>
-      <td class="text-center"><%= test.questions.size %></td>
+      <td class="text-center"><%= test.questions.length %></td>
       <td>
         <%= link_to "Edit", edit_test_path(test) %>
         <%= link_to "Delete", test, method: :delete, data: {:confirm => "Are you sure?" } %>
