@@ -12,7 +12,18 @@ The setups steps expect following tools installed on the system.
 git@github.com:luvcjssy/school_management.git
 ```
 
-##### 2. Create database.yml file
+##### 2. Go to project directory
+
+```bash
+cd <path_to_project>
+```
+
+##### 3. Install gem
+```bash
+bundle install
+```
+
+##### 4. Create database.yml file
 
 Edit the database configuration as required.
 
@@ -20,7 +31,7 @@ Edit the database configuration as required.
 config/database.yml
 ```
 
-##### 3. Create and setup the database
+##### 5. Create and setup the database
 
 Run the following commands to create and setup the database.
 
@@ -30,7 +41,7 @@ bundle exec rake db:migrate
 bundle exec rake db:seed
 ```
 
-##### 4. Start the Rails server
+##### 6. Start the Rails server
 
 You can start the rails server using the command given below.
 
