@@ -8,6 +8,8 @@ class Applicant < ApplicationRecord
   private
 
   def question_not_including
+    return unless test
+
     question_ids = test.question_ids
     submitted_question_ids = result.map { |a| a['question_id'] }
 
@@ -15,6 +17,8 @@ class Applicant < ApplicationRecord
   end
 
   def answer_not_including
+    return unless test
+
     result.each do |r|
       answer_ids = test.answers.where(question_id: r['question_id'], id: r['answer_ids']).ids
 
