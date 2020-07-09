@@ -16,7 +16,7 @@ module ApplicationHelper
     link_to(name, href, class: "#{class_name} btn btn-success ml-auto", data: {id: id, fields: fields.gsub("\n", "")}, onclick: event)
   end
 
-  def active_class(link_path_arr)
-    link_path_arr.include?(request.path) ? "active" : ""
+  def active_class(controller_name)
+    controller_name == params[:controller] ? "active" : ""
   end
 end

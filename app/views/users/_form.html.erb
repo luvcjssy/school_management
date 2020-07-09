@@ -48,7 +48,8 @@
   <div class="form-group row">
     <%= f.label :role, class: "col-sm-3 col-form-label" %>
     <div class="col-sm-9">
-      <%= f.select :role, User.roles.keys, { include_blank: true }, class: "form-control" %>
+      <%= f.select :role, User.roles.collect { |r| [r.first.humanize, r.first] },
+                   { include_blank: 'Select role' }, class: "form-control" %>
     </div>
   </div>
 <% end %>

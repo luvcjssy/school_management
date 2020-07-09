@@ -3,10 +3,10 @@
     <div class="collapse navbar-collapse">
       <ul class="navbar-nav align-items-end ml-auto">
         <li class="nav-item text-nowrap">
-          <%= link_to "Users", users_path, class: "nav-link #{active_class([root_path, users_path])}" %>
+          <%= link_to "Users", users_path, class: "nav-link #{active_class('users')}" %>
         </li>
         <li class="nav-item text-nowrap border-right border-left">
-          <%= link_to "Tests", tests_path, class: "nav-link #{active_class([tests_path])}" %>
+          <%= link_to "Tests", tests_path, class: "nav-link #{active_class('tests')}" %>
         </li>
         <li class="nav-item text-nowrap">
           <%= link_to "Logout", destroy_user_session_path, class: "nav-link", method: :delete %>
