@@ -60,7 +60,7 @@ describe Api::V1::TestsController do
         get :index
         body = JSON.parse(response.body)
 
-        expect(response).to have_http_status 401
+        expect(response).to have_http_status 403
         expect(body['success']).to eq false
         expect(body['errors']['unauthorized']).to include 'You are not allow to do this action'
       end
@@ -122,7 +122,7 @@ describe Api::V1::TestsController do
         get :show, params: { id: @test.id }
         body = JSON.parse(response.body)
 
-        expect(response).to have_http_status 401
+        expect(response).to have_http_status 403
         expect(body['success']).to eq false
         expect(body['errors']['unauthorized']).to include 'You are not allow to do this action'
       end
