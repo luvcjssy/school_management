@@ -34,8 +34,13 @@ class UsersController < BaseController
   end
 
   def destroy
-    @user.destroy
-    flash[:success] = 'User has been deleted!'
+    if @user.applicants.present?
+      flash[:error] = "This user couldn't be deleted! Because applicant link this user."
+    else
+      @user.destroy
+      flash[:success] = 'User has been deleted!'
+    end
+
     redirect_to users_path
   end
 

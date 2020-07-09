@@ -33,8 +33,13 @@ class TestsController < BaseController
   end
 
   def destroy
-    @test.destroy
-    flash[:success] = 'Test has been deleted!'
+    if @test.applicants.present?
+      flash[:error] = "Test couldn't be deleted! Because applicant link this test."
+    else
+      @test.destroy
+      flash[:success] = 'Test has been deleted!'
+    end
+
     redirect_to tests_path
   end
 

@@ -1,6 +1,7 @@
 class Test < ApplicationRecord
   has_many :questions, dependent: :destroy
   has_many :answers, :through => :questions
+  has_many :applicants
   accepts_nested_attributes_for :questions, allow_destroy: true, reject_if: :all_blank
   accepts_nested_attributes_for :answers, allow_destroy: true, reject_if: :all_blank
 
