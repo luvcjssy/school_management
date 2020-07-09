@@ -7,4 +7,6 @@ class User < ApplicationRecord
   include DeviseTokenAuth::Concerns::User
 
   enum role: [:teacher, :student]
+
+  has_many :applicants
 end
