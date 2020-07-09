@@ -1,0 +1,592 @@
+openapi: 3.0.0
+info:
+  title: School Management
+  contact:
+    email: nguyenhoan2510@gmail.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICESE-2.0.html
+  version: 1.0.0
+servers:
+- url: http://localhost:3000/api/v1
+  description: Development environment
+- url: https://school-management-exam.herokuapp.com/api/v1
+  description: Production environment
+tags:
+- name: Student Authentication
+- name: Test Management
+- name: Applicant Management
+paths:
+  /auth/sign_in:
+    post:
+      tags:
+      - Student Authentication
+      summary: Student authentication
+      requestBody:
+        $ref: "#/components/requestBodies/studentSignInBody"
+      responses:
+        200:
+          description: |
+            Return admin and API access token info <br> Get the API access token info from headers (uid, access-token, token-type, expiry, client) to authorize for other requests
+          headers:
+            token-type:
+              $ref: "#/components/headers/tokenType"
+            expiry:
+              $ref: "#/components/headers/expiry"
+            access-token:
+              $ref: "#/components/headers/accessToken"
+            client:
+              $ref: "#/components/headers/client"
+            uid:
+              $ref: "#/components/headers/uid"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/studentSignInSchema"
+        401:
+          $ref: "#/components/responses/unauthorizedStudentSignIn"
+  /auth/sign_out:
+    delete:
+      tags:
+      - Student Authentication
+      summary: Student sign out
+      responses:
+        200:
+          description: Signout successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/signOutSchema"
+        404:
+          $ref: "#/components/responses/userNotFound"
+      security:
+      - apiTokenType: []
+      - apiExpiry: []
+      - apiUid: []
+      - appClient: []
+      - appAccessToken: []
+  /tests:
+    get:
+      tags:
+      - Test Management
+      summary: Get tests list
+      parameters:
+        - $ref: "#/components/parameters/page"
+        - $ref: "#/components/parameters/perPage"
+      responses:
+        200:
+          description: Successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/testListSchema"
+        401:
+          $ref: "#/components/responses/unauthorized"
+        403:
+          $ref: "#/components/responses/forbidden"
+      security:
+      - apiTokenType: []
+      - apiExpiry: []
+      - apiUid: []
+      - appClient: []
+      - appAccessToken: []
+  /tests/{id}:
+    get:
+      tags:
+      - Test Management
+      summary: Get test detail
+      parameters:
+        - $ref: "#/components/parameters/id"
+      responses:
+        200:
+          description: Successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/testDetailSchema"
+        401:
+          $ref: "#/components/responses/unauthorized"
+        403:
+          $ref: "#/components/responses/forbidden"
+        404:
+          $ref: "#/components/responses/recordNotFound"
+      security:
+      - apiTokenType: []
+      - apiExpiry: []
+      - apiUid: []
+      - appClient: []
+      - appAccessToken: []
+  /applicants:
+    post:
+      tags:
+      - Applicant Management
+      summary: Submit test result
+      requestBody:
+        $ref: "#/components/requestBodies/createApplicantBody"
+      responses:
+        200:
+          description: Successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/createApplicantSchema"
+        401:
+          $ref: "#/components/responses/unauthorized"
+        403:
+          $ref: "#/components/responses/forbidden"
+        422:
+          $ref: "#/components/responses/unprocessableEntityCreateLead"
+      security:
+      - apiTokenType: []
+      - apiExpiry: []
+      - apiUid: []
+      - appClient: []
+      - appAccessToken: []
+components:
+  parameters:
+    id:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: integer
+        example: 1
+    page:
+      name: page
+      in: query
+      schema:
+        type: number
+        example: 1
+    perPage:
+      name: per_page
+      in: query
+      schema:
+        type: number
+        example: 10
+  headers:
+    tokenType:
+      style: simple
+      explode: false
+      schema:
+        type: string
+    expiry:
+      style: simple
+      explode: false
+      schema:
+        type: string
+    accessToken:
+      style: simple
+      explode: false
+      schema:
+        type: string
+    client:
+      style: simple
+      explode: false
+      schema:
+        type: string
+    uid:
+      style: simple
+      explode: false
+      schema:
+        type: string
+  securitySchemes:
+    apiTokenType:
+      type: apiKey
+      name: token-type
+      in: header
+    apiExpiry:
+      type: apiKey
+      name: expiry
+      in: header
+    apiUid:
+      type: apiKey
+      name: uid
+      in: header
+    appClient:
+      type: apiKey
+      name: client
+      in: header
+    appAccessToken:
+      type: apiKey
+      name: access-token
+      in: header
+  responses:
+    unauthorizedStudentSignIn:
+      description: |
+        Not enough conditions to authenticate.<br> Please make sure the response headers (access-token, uid, client, token-type, expiry) from /auth/sign_in are passed with a correct values.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              success:
+                type: boolean
+                example: false
+              errors:
+                type: array
+                items:
+                  type: string
+                  example: Invalid login credentials. Please try again.
+    userNotFound:
+      description: User not found.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              success:
+                type: boolean
+                description: Return the boolean, true stand for ok otherwise fail.
+                example: false
+              errors:
+                type: array
+                items:
+                  example: User was not found or was not logged in.
+    unauthorized:
+      description: |
+        Not enough conditions to authenticate.<br> Please make sure the response headers (access-token, uid, client, token-type, expiry) from authentication are passed with a correct values.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              errors:
+                type: array
+                items:
+                  type: string
+                  example: "You need to sign in or sign up before continuing."
+    recordNotFound:
+      description: Record not found.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              success:
+                type: boolean
+                example: false
+              message:
+                type: string
+                example: "Record not found"
+              errors:
+                type: object
+                properties:
+                  record_not_found:
+                    type: array
+                    items:
+                      type: string
+                    example:
+                      - "Record not found"
+    forbidden:
+      description: Forbidden.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              success:
+                type: boolean
+                example: false
+              message:
+                type: string
+                example: unauthorized
+              errors:
+                type: object
+                properties:
+                  unauthorized:
+                    type: array
+                    items:
+                      type: string
+                    example:
+                      - You are not allow to do this action
+    unprocessableEntityCreateLead:
+      description: Unprocessable Entity
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: "Unprocessable Entity"
+              success:
+                type: boolean
+                example: false
+              errors:
+                type: object
+                properties:
+                  test:
+                    type: array
+                    items:
+                      type: string
+                    example:
+                      - Test must exist
+                  applicant:
+                    type: array
+                    items:
+                      type: string
+                    example:
+                      - Applicant has questions not belong to this test
+                      - Applicant has answers not belong to this test
+  requestBodies:
+    studentSignInBody:
+      description: A JSON object containing authentication information.
+      content:
+        application/json:
+          schema:
+            required:
+            - email
+            - password
+            type: object
+            properties:
+              email:
+                type: string
+                example: "student@example.com"
+              password:
+                type: string
+                example: "12345678"
+      required: true
+    createApplicantBody:
+      description: |
+        A JSON object containing lead information.
+      content:
+        application/json:
+          schema:
+            required:
+            - test_id
+            type: object
+            properties:
+              test_id:
+                type: number
+                example: 1
+              result:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    question_id:
+                      type: number
+                    answer_ids:
+                      type: array
+                      items:
+                        type: number
+                example:
+                  - question_id: 1
+                    answer_ids: [3]
+                  - question_id: 2
+                    answer_ids: [4]
+      required: true
+  schemas:
+    studentSignInSchema:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            id:
+              type: number
+              example: 2
+            email:
+              type: string
+              example: "student@example.com"
+            provider:
+              type: string
+              example: "email"
+            uid:
+              type: string
+              example: "student@example.com"
+            name:
+              type: string
+              example: "Student Default"
+            role:
+              type: string
+              example: "student"
+    signOutSchema:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Return the boolean, true stand for ok otherwise fail.
+          example: true
+    testListSchema:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        message:
+          type: string
+          example: "Fetch data"
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: number
+              name:
+                type: string
+              description:
+                type: string
+              created_at:
+                type: string
+              updated_at:
+                type: string
+          example:
+            - id: 1
+              name: "Match I"
+              description: "Take a Math test"
+              created_at: "2020-07-09T10:13:44.250Z"
+              updated_at: "2020-07-09T10:13:44.250Z"
+            - id: 2
+              name: "Match II"
+              description: "Take a Math test"
+              created_at: "2020-07-09T10:15:42.698Z"
+              updated_at: "2020-07-09T10:15:42.698Z"
+        current_page:
+          type: number
+          example: 1
+        per_page:
+          type: number
+          example: 10
+        total_count:
+          type: number
+          example: 2
+        total_page:
+          type: number
+          example: 1
+    testDetailSchema:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        message:
+          type: string
+          example: Test detail
+        data:
+          type: object
+          properties:
+            id:
+              type: number
+              example: 1
+            name:
+              type: string
+              example: Match I
+            description:
+              type: string
+              example: Take a Math test
+            created_at:
+              type: string
+              example: "2020-07-09T10:13:44.250Z"
+            updated_at:
+              type: string
+              example: "2020-07-09T10:13:44.250Z"
+            questions:
+              type: array
+              items:
+                type: object
+                properties:
+                  id:
+                    type: number
+                  label:
+                    type: string
+                  description:
+                    type: string
+                  test_id:
+                    type: number
+                  created_at:
+                    type: string
+                  updated_at:
+                    type: string
+                  answers:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: number
+                        result:
+                          type: string
+                        correct:
+                          type: boolean
+                        question_id:
+                          type: number
+                        created_at:
+                          type: string
+                        updated_at:
+                          type: string
+              example:
+                - id: 1
+                  type: Simple_algebra
+                  description: What is 2+2?
+                  test_id: 1
+                  created_at: "2020-07-09T10:13:44.255Z"
+                  updated_at: "2020-07-09T10:13:44.255Z"
+                  answers: [
+                    {
+                      id: 1,
+                      result: "2",
+                      correct: false,
+                      question_id: 1,
+                      created_at: "2020-07-09T10:13:44.318Z",
+                      updated_at: "2020-07-09T10:13:44.318Z"
+                    },
+                    {
+                      id: 2,
+                      result: "3",
+                      correct: false,
+                      question_id: 1,
+                      created_at: "2020-07-09T10:13:44.416Z",
+                      updated_at: "2020-07-09T10:13:44.416Z"
+                    },
+                    {
+                      id: 3,
+                      result: "4",
+                      correct: true,
+                      question_id: 1,
+                      created_at: "2020-07-09T10:13:44.420Z",
+                      updated_at: "2020-07-09T10:13:44.420Z"
+                    }
+                  ]
+                - id: 2
+                  type: Simple_algebra
+                  description: What is 2+3?
+                  test_id: 1
+                  created_at: "2020-07-09T10:14:40.146Z"
+                  updated_at: "2020-07-09T10:14:40.146Z"
+                  answers: [
+                    {
+                      id: 4,
+                      result: "3",
+                      correct: false,
+                      question_id: 2,
+                      created_at: "2020-07-09T10:14:40.150Z",
+                      updated_at: "2020-07-09T10:14:40.150Z"
+                    },
+                    {
+                      id: 5,
+                      result: "5",
+                      correct: true,
+                      question_id: 2,
+                      created_at: "2020-07-09T10:14:40.153Z",
+                      updated_at: "2020-07-09T10:14:40.153Z"
+                    },
+                    {
+                      id: 6,
+                      result: "4",
+                      correct: true,
+                      question_id: 2,
+                      created_at: "2020-07-09T10:14:40.208Z",
+                      updated_at: "2020-07-09T10:14:40.208Z"
+                    }
+                  ]
+    createApplicantSchema:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        message:
+          type: string
+          example: Saved successfully
