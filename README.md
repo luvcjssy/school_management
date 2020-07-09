@@ -1,24 +1,41 @@
-# README
+##### Prerequisites
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+The setups steps expect following tools installed on the system.
 
-Things you may want to cover:
+- Github
+- Ruby 2.7.1
+- Rails 6.0.3.2
 
-* Ruby version
+##### 1. Check out the repository
 
-* System dependencies
+```bash
+git@github.com:luvcjssy/school_management.git
+```
 
-* Configuration
+##### 2. Create database.yml file
 
-* Database creation
+Edit the database configuration as required.
 
-* Database initialization
+```bash
+config/database.yml
+```
 
-* How to run the test suite
+##### 3. Create and setup the database
 
-* Services (job queues, cache servers, search engines, etc.)
+Run the following commands to create and setup the database.
 
-* Deployment instructions
+```ruby
+bundle exec rake db:create
+bundle exec rake db:migrate
+bundle exec rake db:seed
+```
 
-* ...
+##### 4. Start the Rails server
+
+You can start the rails server using the command given below.
+
+```ruby
+bundle exec rails s
+```
+
+And now you can visit the site with the URL http://localhost:3000
