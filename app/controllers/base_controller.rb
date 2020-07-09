@@ -1,5 +1,5 @@
 class BaseController < ApplicationController
-  before_action :authorize_teacher
+  before_action :authenticate_user!, :authorize_teacher
 
   private
 

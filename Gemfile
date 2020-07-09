@@ -14,12 +14,24 @@ gem 'bootsnap', '>= 1.4.2', require: false
 
 # Authentication
 gem 'devise'
+gem 'devise_token_auth'
 
 # Bootstrap
 gem 'bootstrap', '~> 4.5.0'
 
+# Serializer
+gem 'active_model_serializers'
+
+# Pagination
+gem 'will_paginate'
+
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'rspec-rails', '~> 4.0.0.beta2'
+  gem 'factory_bot_rails'
+  gem 'database_cleaner'
+  gem 'faker'
+  gem 'rails-controller-testing'
 end
 
 group :development do

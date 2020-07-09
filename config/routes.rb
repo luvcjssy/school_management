@@ -5,4 +5,10 @@ Rails.application.routes.draw do
 
   resources :users
   resources :tests, except: [:show]
+
+  namespace :api, format: 'json' do
+    namespace :v1 do
+      mount_devise_token_auth_for 'User', at: '/auth'
+    end
+  end
 end
