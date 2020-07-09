@@ -20,6 +20,7 @@ default: &default
   # For details on connection pooling, see Rails configuration guide
   # https://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  port: 5432
 
 development:
   <<: *default
@@ -80,6 +81,7 @@ test:
 #
 production:
   <<: *default
-  database: school_management_production
-  username: school_management
+  host: <%= ENV['SCHOOL_MANAGEMENT_DATABASE_HOST'] %>
+  database: <%= ENV['SCHOOL_MANAGEMENT_DATABASE_NAME'] %>
+  username: <%= ENV['SCHOOL_MANAGEMENT_DATABASE_USERNAME'] %>
   password: <%= ENV['SCHOOL_MANAGEMENT_DATABASE_PASSWORD'] %>
