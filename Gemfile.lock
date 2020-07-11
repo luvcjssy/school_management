@@ -63,16 +63,10 @@ GEM
       zeitwerk (~> 2.2, >= 2.2.2)
     addressable (2.7.0)
       public_suffix (>= 2.0.2, < 5.0)
-    autoprefixer-rails (9.8.4)
-      execjs
     bcrypt (3.1.13)
     bindex (0.8.1)
     bootsnap (1.4.6)
       msgpack (~> 1.0)
-    bootstrap (4.5.0)
-      autoprefixer-rails (>= 9.1.0)
-      popper_js (>= 1.14.3, < 2)
-      sassc-rails (>= 2.0.0)
     builder (3.2.4)
     bullet (6.1.0)
       activesupport (>= 3.0.0)
@@ -104,7 +98,6 @@ GEM
       rails (>= 4.2.0, < 6.1)
     diff-lcs (1.4.4)
     erubi (1.9.0)
-    execjs (2.7.0)
     factory_bot (6.1.0)
       activesupport (>= 5.0.0)
     factory_bot_rails (6.1.0)
@@ -142,7 +135,6 @@ GEM
       mini_portile2 (~> 2.4.0)
     orm_adapter (0.5.0)
     pg (1.2.3)
-    popper_js (1.16.0)
     public_suffix (4.0.5)
     puma (4.3.5)
       nio4r (~> 2.0)
@@ -272,7 +264,6 @@ PLATFORMS
 DEPENDENCIES
   active_model_serializers
   bootsnap (>= 1.4.2)
-  bootstrap (~> 4.5.0)
   bullet
   byebug
   capybara (>= 2.15)

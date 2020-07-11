@@ -1,17 +1,18 @@
-@import "bootstrap";
+//@import "bootstrap";
+//@import "~bootstrap/scss/bootstrap.scss";
 
-table.serial_number {
-  counter-reset: rowNumber;
-}
-
-table.serial_number tr::before {
-  display: table-cell;
-  counter-increment: rowNumber;
-  content: counter(rowNumber);
-  vertical-align: middle;
-}
-
-// Active link
-.active {
-  color: black;
-}
+//table.serial_number {
+//  counter-reset: rowNumber;
+//}
+//
+//table.serial_number tr::before {
+//  display: table-cell;
+//  counter-increment: rowNumber;
+//  content: counter(rowNumber);
+//  vertical-align: middle;
+//}
+//
+//// Active link
+//.active {
+//  color: black;
+//}

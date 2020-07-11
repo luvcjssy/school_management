@@ -8,6 +8,9 @@ require("turbolinks").start()
 require("@rails/activestorage").start()
 require("channels")
 
+import "bootstrap";
+import "../stylesheets/application"
+
 require('./nested-forms/addQuestionFields')
 require('./nested-forms/removeQuestionFields')
 require('./nested-forms/addAnswerFields')

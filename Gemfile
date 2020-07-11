@@ -16,9 +16,6 @@ gem 'bootsnap', '>= 1.4.2', require: false
 gem 'devise'
 gem 'devise_token_auth'
 
-# Bootstrap
-gem 'bootstrap', '~> 4.5.0'
-
 # Serializer
 gem 'active_model_serializers'
 

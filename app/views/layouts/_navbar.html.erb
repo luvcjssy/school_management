@@ -1,11 +1,14 @@
-<nav class="navbar navbar-expand-lg">
+<nav class="navbar navbar-expand-lg navbar-light">
   <div class="container">
-    <div class="collapse navbar-collapse">
+    <button class="navbar-toggler text-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav align-items-end ml-auto">
         <li class="nav-item text-nowrap">
           <%= link_to "Users", users_path, class: "nav-link #{active_class('users')}" %>
         </li>
-        <li class="nav-item text-nowrap border-right border-left">
+        <li class="nav-item text-nowrap border-lr">
           <%= link_to "Tests", tests_path, class: "nav-link #{active_class('tests')}" %>
         </li>
         <li class="nav-item text-nowrap">
