@@ -1,3 +1,14 @@
+##### Online demo
+
+URL: https://school-management-exam.herokuapp.com/
+
+Note: 
+
+- Only teacher accounts can access the website to manage users and tests list
+- Teacher account: teacher@example.com - 12345678
+- Only student accounts can use API. Please see `docs/api_swagger.yaml` to more details
+- Student account: student@example.com - 12345678
+
 ##### Prerequisites
 
 The setups steps expect following tools installed on the system.
